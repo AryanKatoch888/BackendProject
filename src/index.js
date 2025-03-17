@@ -2,19 +2,38 @@
 import dotenv from "dotenv";
 import connectDB from "./db/index.js";
 
+
 dotenv.config(
     {
         path:   './env'
     });
 
-connectDB();
+    app.get("/", (req, res) => {
+      res.send("Hello Delta");
+    });
+
+connectDB()
+.then(()=> {
+    app.listen(process.env.PORT || 8000,()=> {
+        console.log(`Server is running on: ${process.env.PORT}`);
+    }  )
+})
+.catch((error)=> {
+    console.log("MongoDB connection error: ", error);
+})
+
+
+
+
+
+
 
 // import express from "express"
 // const app = express()
 // //if e
-// (async () => {
+// ;(async () => {
 //     try{
-//         await mongoose.connect(`${process.env.MONGODB_URI}/ ${DB_Name}`);
+//         await mongoose.connect(`${process.env.MONGODB_URI}/${DB_Name}`);
 //         app.on("error", (error)=> {
 //             console.error(error);
 //             throw error
@@ -25,6 +44,6 @@ connectDB();
 //     }
 //     catch(error){
 //         console.error("Error ", error);
-//         throw err;
+//         throw error;
 //     }
 // })();
